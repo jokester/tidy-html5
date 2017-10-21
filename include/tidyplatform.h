@@ -528,6 +528,10 @@ typedef unsigned int uint;
 # undef ulong
 typedef unsigned long ulong;
 #endif
+#if defined(LINUX_OS)
+typedef unsigned int uint;
+typedef unsigned long ulong;
+#endif
 
 /*
 With GCC 4,  __attribute__ ((visibility("default"))) can be used along compiling with tidylib 
