@@ -330,12 +330,16 @@ tmbstr TY_(tidySystemLocale)(tmbstr result)
  *  don't try to free it. If the name looks like a cc_ll identifier, we will
  *  return it if there's no other match.
  */
-tmbstr TY_(tidyNormalizedLocaleName)( ctmbstr locale )
+tmbstr TY_(tidyNormalizedLocaleName)( ctmbstr locale, TidyAllocator *allocator )
 {
     uint i;
     uint len;
     static char result[6] = "xx_yy";
-    tmbstr search = strdup(locale);
+    if (!allocator)
+    {
+        allocator = &TY_(g_default_allocator);
+    }
+    tmbstr search = TY_(tmbstrdup)( allocator, locale );
     search = TY_(tmbstrtolower)(search);
     
     /* See if our string matches a Windows name. */
@@ -343,8 +347,8 @@ tmbstr TY_(tidyNormalizedLocaleName)( ctmbstr locale )
     {
         if ( strcmp( localeMappings[i].winName, search ) == 0 )
         {
-            free(search);
-            search = strdup(localeMappings[i].POSIXName);
+            TidyFree( allocator, search );
+            search = TY_(tmbstrdup)( allocator, localeMappings[i].POSIXName );
             break;
         }
     }
@@ -376,7 +380,7 @@ tmbstr TY_(tidyNormalizedLocaleName)( ctmbstr locale )
         }
     }
     
-    free( search );
+    TidyFree( allocator, search );
     return result;
 }
 
@@ -424,7 +428,7 @@ Bool TY_(tidySetLanguage)( ctmbstr languageCode )
     tmbstr wantCode = NULL;
     char lang[3] = "";
     
-    if ( !languageCode || !(wantCode = TY_(tidyNormalizedLocaleName)( languageCode )) )
+    if ( !languageCode || !(wantCode = TY_(tidyNormalizedLocaleName)( languageCode, /* TODO use allocator */ NULL )) )
     {
         return no;
     }
