@@ -604,7 +604,7 @@ tmbstr tidyNormalizedLocaleName( ctmbstr locale )
     uint i;
     uint len;
     static char result[6] = "xx_yy";
-    tmbstr search = strdup(locale);
+    tmbstr search = TY_(tmbstrdup)( &TY_(g_default_allocator), locale );
     search = TY_(tmbstrtolower)(search);
     
     /* See if our string matches a Windows name. */
@@ -613,7 +613,7 @@ tmbstr tidyNormalizedLocaleName( ctmbstr locale )
         if ( strcmp( localeMappings[i].winName, search ) == 0 )
         {
             free(search);
-            search = strdup(localeMappings[i].POSIXName);
+            search = TY_(tmbstrdup)( &TY_(g_default_allocator), localeMappings[i].POSIXName );
             break;
         }
     }
