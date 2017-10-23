@@ -303,9 +303,11 @@ ctmbstr TY_(tidyLocalizedString)( uint messageType )
  **          Returns NULL on failure.
  **  @return The same buffer for convenience.
  */
-tmbstr TY_(tidySystemLocale)(tmbstr result)
+tmbstr TY_(tidySystemLocale)(tmbstr result, TidyAllocator* allocator)
 {
     ctmbstr temp;
+    if (!allocator)
+        allocator = &TY_(g_default_allocator);
     
     /* This should set the OS locale. */
     setlocale( LC_ALL, "" );
@@ -315,7 +317,7 @@ tmbstr TY_(tidySystemLocale)(tmbstr result)
     
     /* Make a new copy of the string, because temp
      always points to the current locale. */
-    if (( result = malloc( strlen( temp ) + 1 ) ))
+    if (( result = TidyAlloc( allocator, strlen( temp ) + 1 ) ))
         strcpy(result, temp);
     
     /* This should restore the C locale. */

@@ -93,9 +93,10 @@ typedef struct tidyLocaleMapItemImpl {
  **  in its development we're not going to tamper with that.
  **  @param  result The buffer to use to return the string.
  **          Returns NULL on failure.
+ **  @param  allocator a optional allocator
  **  @return The same buffer for convenience.
  */
-tmbstr TY_(tidySystemLocale)(tmbstr result);
+tmbstr TY_(tidySystemLocale)(tmbstr result, TidyAllocator* allocator);
 
 /**
  *  Tells Tidy to use a different language for output.

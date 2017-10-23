@@ -2446,7 +2446,7 @@ uint TIDY_CALL getNextErrorCode( TidyIterator* iter )
 
 tmbstr TIDY_CALL tidySystemLocale(tmbstr result)
 {
-    return TY_(tidySystemLocale)( result );
+    return TY_(tidySystemLocale)( result, /* TODO: allocator */ NULL );
 }
 
 Bool TIDY_CALL tidySetLanguage( ctmbstr languageCode )
