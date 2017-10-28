@@ -88,7 +88,7 @@ typedef struct tidyLocaleMapItemImpl {
 
 
 /**
- **  Determines the current locale without affecting the C locale.
+ **  Determines the current locale without permanently affecting the C locale.
  **  Tidy has always used the default C locale, and at this point
  **  in its development we're not going to tamper with that.
  **  @param  result The buffer to use to return the string.
