@@ -1972,8 +1972,8 @@ TIDY_EXPORT uint TIDY_CALL getNextErrorCode( TidyIterator* iter );
 /** Determines the current locale without permanently affecting the C locale.
  ** @note this routine uses thread-unsafe functions in `locale.h`,
  **       using it in library or service may cause trouble.
- ** @param  result The buffer to use to return the string, or NULL on failure.
- ** @return The same buffer for convenience.
+ ** @param  result The buffer to use to return the string.
+ ** @return The same buffer for convenience, or NULL on failure.
  */
 TIDY_EXPORT tmbstr TIDY_CALL tidySystemLocale(tmbstr result);
 

@@ -92,8 +92,7 @@ typedef struct tidyLocaleMapItemImpl {
  **  Tidy has always used the default C locale, and at this point
  **  in its development we're not going to tamper with that.
  **  @param  result The buffer to use to return the string.
- **          Returns NULL on failure.
- **  @return The same buffer for convenience.
+ **  @return The same buffer for convenience, or NULL on failure.
  */
 tmbstr TY_(tidySystemLocale)(tmbstr result);
 
